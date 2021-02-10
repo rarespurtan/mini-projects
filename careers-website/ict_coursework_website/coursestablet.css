@@ -1,0 +1,361 @@
+ @viewport {
+  width:device-width;
+  zoom: 1.0 ;
+}
+
+@-ms-viewport {
+  width: device-width;
+}
+
+@media screen and (max-width:320px) {
+}
+
+@media screen and (min-width:320px) and (max-width:640px) {
+}
+
+#somethingorother {
+  width: 800px ;
+}
+
+@media screen and (max-width: 320px) {
+  #somethingorother {
+    width: 120px ;
+  }
+}
+@media screen and (min-width: 321px) and (max-width: 480px) {
+  #somethingorother {
+    width: 320px ;
+  }
+}
+@media screen and (min-width: 481px) {
+    width: 480px ;
+
+} 
+
+
+#back2Top {
+    width: 40px;
+    line-height: 40px;
+    overflow: hidden;
+    z-index: 999;
+    display: none;
+    cursor: pointer;
+    -moz-transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+    position: fixed;
+    bottom: 50px;
+    right: 0;
+    background-color: #DDD;
+    color: black;
+    text-align: center;
+    font-size: 30px;
+    text-decoration: none;
+}
+#back2Top:hover {
+    background-color: #DDF;
+    color: #000;
+}
+
+.container {
+  display: inline-grid;  
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-template-rows:  100px 600px 450px 300px 900px 800px 250px;
+  background-color: white;
+  position: absolute;
+  font-family: 'Bokor';   
+}
+
+.navigation {
+    grid-area: 1 / 1 / 1 / 5;
+    background-color: #0e0727;
+    padding: 0px;
+}
+
+
+.logo {
+    grid-area; 1/1/1/5;
+    margin-top: 0.5vw;
+    margin-left: 45vw;
+}
+
+.navposition {
+    margin-left: 34vw;
+    margin-top: 0.5%;
+}
+
+.navigation > a {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 20px;
+    height: 60px;        /* if you want it to take the full height of the bar */
+    line-height: 60px;    /* if you want it vertically middle of the navbar */
+}
+
+.a {
+    color: white;
+    text-decoration: none;
+    font-family: monospace;
+    margin-left: 3%;
+    font-size: 1.5vw;
+}
+
+a:hover {
+    color: darkorange;
+}
+
+.headerbackground {
+    grid-area: 2/1/2/5;
+    background: url(images/headercourses.jpg) no-repeat center center;
+    background-size: 100%;
+    background-attachment: scroll;
+    background-color: #0e0727;
+    
+}
+
+.headertext {
+    color: white;
+    font-size: 6vw; 
+    margin-top: 450px;
+    margin-left: 5%;
+    display: inherit;
+}
+
+.subtext {
+    color: white;
+    font-size: 2vw; 
+    margin-left: 5%;
+    display: inherit;
+}
+
+.aboutcompany {
+    grid-area: 3/1/3/5;
+    background-color: #0e0727;
+}
+
+.aboutustitle {
+    font-size: 30px;
+    margin-left: 40%;
+    color: white;
+}
+
+.aboutustext {
+    font-size: 20px;
+    margin-left: 60px;
+    margin-right: 60px;
+    color: white;
+}
+
+.employee1 {
+    grid-area: 4/1/4/1;
+    background-color: white;
+    
+}
+.employee2 {
+    grid-area: 4/2/4/2;
+    background-color: white;
+    
+}
+.employee3 {
+    grid-area: 4/3/4/3;
+    background-color: white;
+    
+}
+.employee4 {
+    grid-area: 4/4/4/4;
+    background-color: white;
+    
+}
+
+.employeelist {
+    margin-left: 2.8vw ;
+    box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.8);
+}
+
+.employeerole {
+    margin-left: 12%;
+}
+
+.course1 {
+    grid-area: 5/1/5/3;
+    background-color: white;
+}
+
+.course2 {
+    grid-area: 5/3/5/5;
+    background-color: white;
+}
+
+
+#demo {
+    margin-top: 10%;
+    word-wrap: break-word;
+    margin-left: 10%;
+}
+
+#application {
+    grid-area: 6/2/6/4;
+    background-color: white;
+    align-content: center;
+    border: 3px solid #0e0727;
+}
+
+.applyforjob {
+  background-color: white; 
+  border: 2px solid black; 
+  color: black;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  margin-left: 250px;
+  margin-top: auto;  
+  cursor: pointer;
+}
+.formtitle {
+    margin-left: 40%;
+}
+
+form {
+  /* Just to center the form on the page */
+  width: 400px;
+  /* To see the outline of the form */
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
+  margin: 0 auto;
+}
+
+form div + div {
+  margin-top: 1em;
+}
+
+label {
+  /* To make sure that all labels have the same size and are properly aligned */
+  display: inline-block;
+  width: 90px;
+  text-align: right;
+}
+
+input, textarea {
+  /* To make sure that all text fields have the same font settings
+     By default, textareas have a monospace font */
+  font: 1em;
+
+  /* To give the same size to all text fields */
+  width: 300px;
+  box-sizing: border-box;
+
+  /* To harmonize the look & feel of text field border */
+  border: 1px solid #999;
+}
+
+input:focus, textarea:focus {
+  /* To give a little highlight on active elements */
+  border-color: #000;
+}
+
+textarea {
+  /* To properly align multiline text fields with their labels */
+  vertical-align: top;
+
+  /* To give enough room to type some text */
+  height: 5em;
+}
+
+.button {
+  /* To position the buttons to the same position of the text fields */
+  padding-left: 90px; /* same size as the label elements */
+}
+
+button {
+  /* This extra margin represent roughly the same space as the space
+     between the labels and their text fields */
+  margin-left: 8%;
+  background-color: white; 
+  border: 2px solid black; 
+  color: black;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;  
+  cursor: pointer;    
+}
+
+.personalinfo {
+    text-decoration: underline;
+}
+
+
+
+.courses {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 10%
+}
+
+.viewcourses {
+  margin-left: 36.5%;
+  background-color: white; 
+  border: 2px solid black; 
+  color: black;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;  
+  cursor: pointer;  
+}
+
+.logofooter {
+    grid-area: 7/1/7/3;
+    background-color: #efefef;
+}
+
+.logofooter2 {
+    margin-top: 13%;
+    margin-left: 25%;
+}
+
+.footernav {
+    grid-area: 7/3/7/4;
+    background-color: #efefef;
+}
+
+.footertext {
+    margin-top: 10%;
+    text-decoration: none;
+    color: black;
+}
+
+footertext:hover {
+    color: darkorange;
+    cursor: pointer;
+}
+
+.socials {
+    grid-area: 7/4/7/5;
+    background-color: #efefef;
+}
+
+.socialsbtn {
+  margin-left: 5%;
+  background-color: white; 
+  border: 2px solid black; 
+  color: black;
+  padding: 16px 14px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;  
+  cursor: pointer;
+  margin-top: 5%;
+}
+
+socialsbtn:hover {
+    border-color: 2px solid darkorange;
+}
