@@ -1,0 +1,1 @@
+Writing AI to solve Goose Corn Fox riddle in C++
