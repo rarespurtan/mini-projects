@@ -23,15 +23,16 @@ public class Graphicizer extends Frame implements ActionListener {
                 dispose();
             }
         });
-//        String[] buttonNames = new String[]{"Emboss", "Sharpen", "Brighten", "Blue", "Reduce"};
-//        Button btn;
-//        for (int i = 0, x = 30; i < 5; i++, x += 70) {
-//            btn = new Button(buttonNames[i]);
-//            btn.setBounds(x, getHeight() - 50, 60, 20);
-//            add(btn);
-//            btn.addActionListener(this);
-//        }
-//
+        // String[] buttonNames = new String[]{"Emboss", "Sharpen", "Brighten", "Blue",
+        // "Reduce"};
+        // Button btn;
+        // for (int i = 0, x = 30; i < 5; i++, x += 70) {
+        // btn = new Button(buttonNames[i]);
+        // btn.setBounds(x, getHeight() - 50, 60, 20);
+        // add(btn);
+        // btn.addActionListener(this);
+        // }
+        //
         button1 = new Button("Emboss");
         button1.setBounds(30, getHeight() - 50, 60, 20);
         add(button1);
