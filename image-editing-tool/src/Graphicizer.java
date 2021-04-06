@@ -1,11 +1,7 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
+import java.awt.event.*;
+import java.awt.image.*;
 import java.io.File;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -14,11 +10,11 @@ public class Graphicizer extends Frame implements ActionListener {
     private Image image;
     private Menu menu;
     private MenuBar menuBar;
-    private MenuItem menuItem1, menuItem2, menuItem3, menuItem4;
-    private Button button1, button2, button3, button4, button5;
     private FileDialog dialog;
-    private Button[] buttonArr = new Button[] { button1, button2, button3, button4, button5 };
+    private Button[] buttonArr = new Button[5];
     private String[] buttonNames = new String[] { "Embross", "Sharpen", "Brighten", "Blur", "Reduce" };
+    private MenuItem[] menuItemArr = new MenuItem[4];
+    private String[] menuItemNames = new String[] { "Open...", "Save As...", "Undo", "Exit" };
 
     public Graphicizer() {
         setSize(400, 360);
@@ -44,23 +40,11 @@ public class Graphicizer extends Frame implements ActionListener {
         menuBar = new MenuBar();
         menu = new Menu("File");
 
-        private MenuItem[] menuItemArr = new MenuItem[] { menuItem1, menuItem2, menuItem3, menuItem4 };
-
-        menuItem1 = new MenuItem("Open...");
-        menu.add(menuItem1);
-        menuItem1.addActionListener(this);
-
-        menuItem2 = new MenuItem("Save As...");
-        menu.add(menuItem2);
-        menuItem2.addActionListener(this);
-
-        menuItem3 = new MenuItem("Undo");
-        menu.add(menuItem3);
-        menuItem3.addActionListener(this);
-
-        menuItem4 = new MenuItem("Exit");
-        menu.add(menuItem4);
-        menuItem4.addActionListener(this);
+        for (int i = 0; i < menuItemArr.length; i++) {
+            menuItemArr[i] = new MenuItem(menuItemNames[i]);
+            menu.add(menuItemArr[i]);
+            menuItemArr[i].addActionListener(this);
+        }
 
         menuBar.add(menu);
         setMenuBar(menuBar);
@@ -76,7 +60,7 @@ public class Graphicizer extends Frame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == menuItem1) {
+        if (e.getSource() == menuItemArr[0]) {
             dialog.setMode(FileDialog.LOAD);
             dialog.setVisible(true);
             try {
@@ -93,6 +77,60 @@ public class Graphicizer extends Frame implements ActionListener {
             } catch (Exception exception) {
                 System.out.println(exception.getMessage());
             }
+            repaint();
+        } else if (e.getSource() == menuItemArr[1]) {
+            dialog.setMode(FileDialog.SAVE);
+            dialog.setVisible(true);
+            try {
+                if (!dialog.getFile().equals("")) {
+                    String outfile = dialog.getFile();
+                    File outputFile = new File(dialog.getDirectory() + outfile);
+                    ImageIO.write(bufferedImage, outfile.substring(outfile.length() - 3, outfile.length()), outputFile);
+                }
+            } catch (Exception exception) {
+                System.out.println(exception.getMessage());
+            }
+        } else if (e.getSource() == buttonArr[0]) {
+            bufferedImageBackup = bufferedImage;
+            int width = bufferedImage.getWidth();
+            int height = bufferedImage.getHeight();
+            int pixels[] = new int[width * height];
+            PixelGrabber pg = new PixelGrabber(bufferedImage, 0, 0, width, height, pixels, 0, width);
+            try {
+                pg.grabPixels();
+            } catch (Exception exception) {
+                System.out.println(exception.getMessage());
+            }
+            for (int x = 0; x <= 1; x++) {
+                for (int y = 0; y < height; y++) {
+                    pixels[x + y * width] = 0x88888888;
+                }
+            }
+            for (int x = width - 2; x <= width - 1; x++) {
+                for (int y = 0; y < height - 1; y++) {
+                    pixels[x + y * width] = 0x88888888;
+                }
+            }
+            for (int x = 0; x <= width - 1; x++) {
+                for (int y = 0; y <= 1; y++) {
+                    pixels[x + y * width] = 0x88888888;
+                }
+            }
+
+            for (int x = 2; x < width - 1; x++) {
+                for (int y = 2; y < height - 1; y++) {
+                    int red = ((pixels[(x + 1) + y * width + 1] & 0xFF) - (pixels[x + y * width] & 0xFF)) + 128;
+                    int green = (((pixels[(x + 1) + y * width + 1] & 0xFF00) / 0x100 % 0x100)
+                            - ((pixels[x + y * width] & 0xFF00) / 0x100) % 0x100) + 128;
+                    int blue = (((pixels[(x + 1) + y * width + 1] % 0xFF000) / 0x1000) % 0x100
+                            - ((pixels[x + y * width] & 0xFF0000) / 0x1000) % 0x100) + 128;
+                    int avg = (red + blue + green) / 3;
+                    pixels[x + y * width] = (0xff000000 | avg << 16 | avg << 8 | avg);
+                }
+            }
+            image = createImage(new MemoryImageSource(width, height, pixels, 0, width));
+            bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
+            bufferedImage.createGraphics().drawImage(image, 0, 0, this);
             repaint();
         }
     }
@@ -131,3 +169,18 @@ public class Graphicizer extends Frame implements ActionListener {
 // button3.setBounds(170, getHeight() - 50, 60, 20);
 // button4.setBounds(240, getHeight() - 50, 60, 20);
 // button5.setBounds(310, getHeight() - 50, 60, 20);
+// menuItem1 = new MenuItem("Open...");
+// menu.add(menuItem1);
+// menuItem1.addActionListener(this);
+
+// menuItem2 = new MenuItem("Save As...");
+// menu.add(menuItem2);
+// menuItem2.addActionListener(this);
+
+// menuItem3 = new MenuItem("Undo");
+// menu.add(menuItem3);
+// menuItem3.addActionListener(this);
+
+// menuItem4 = new MenuItem("Exit");
+// menu.add(menuItem4);
+// menuItem4.addActionListener(this);
