@@ -69,7 +69,6 @@ public class Aquarium extends Frame implements Runnable {
                 fish = fishes.elementAt(i);
                 fish.swim();
             }
-            System.out.println("swimming");
             try {
                 Thread.sleep(THREAD_SLEEP);
             } catch (Exception e) {
