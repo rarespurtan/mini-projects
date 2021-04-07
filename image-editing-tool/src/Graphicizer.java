@@ -91,47 +91,50 @@ public class Graphicizer extends Frame implements ActionListener {
                 System.out.println(exception.getMessage());
             }
         } else if (e.getSource() == buttonArr[0]) {
-            bufferedImageBackup = bufferedImage;
-            int width = bufferedImage.getWidth();
-            int height = bufferedImage.getHeight();
-            int pixels[] = new int[width * height];
-            PixelGrabber pg = new PixelGrabber(bufferedImage, 0, 0, width, height, pixels, 0, width);
-            try {
-                pg.grabPixels();
-            } catch (Exception exception) {
-                System.out.println(exception.getMessage());
-            }
-            for (int x = 0; x <= 1; x++) {
-                for (int y = 0; y < height; y++) {
-                    pixels[x + y * width] = 0x88888888;
+            if (bufferedImage != null) {
+                bufferedImageBackup = bufferedImage;
+                int width = bufferedImage.getWidth();
+                int height = bufferedImage.getHeight();
+                int pixels[] = new int[width * height];
+                PixelGrabber pg = new PixelGrabber(bufferedImage, 0, 0, width, height, pixels, 0, width);
+                try {
+                    pg.grabPixels();
+                } catch (Exception exception) {
+                    System.out.println(exception.getMessage());
                 }
-            }
-            for (int x = width - 2; x <= width - 1; x++) {
-                for (int y = 0; y < height - 1; y++) {
-                    pixels[x + y * width] = 0x88888888;
-                }
-            }
-            for (int x = 0; x <= width - 1; x++) {
-                for (int y = 0; y <= 1; y++) {
-                    pixels[x + y * width] = 0x88888888;
-                }
-            }
 
-            for (int x = 2; x < width - 1; x++) {
-                for (int y = 2; y < height - 1; y++) {
-                    int red = ((pixels[(x + 1) + y * width + 1] & 0xFF) - (pixels[x + y * width] & 0xFF)) + 128;
-                    int green = (((pixels[(x + 1) + y * width + 1] & 0xFF00) / 0x100 % 0x100)
-                            - ((pixels[x + y * width] & 0xFF00) / 0x100) % 0x100) + 128;
-                    int blue = (((pixels[(x + 1) + y * width + 1] % 0xFF000) / 0x1000) % 0x100
-                            - ((pixels[x + y * width] & 0xFF0000) / 0x1000) % 0x100) + 128;
-                    int avg = (red + blue + green) / 3;
-                    pixels[x + y * width] = (0xff000000 | avg << 16 | avg << 8 | avg);
+                for (int x = 0; x <= 1; x++) {
+                    for (int y = 0; y < height - 1; y++) {
+                        pixels[x + y * width] = 0x88888888;
+                    }
                 }
+                for (int x = width - 2; x <= width - 1; x++) {
+                    for (int y = 0; y < height - 1; y++) {
+                        pixels[x + y * width] = 0x88888888;
+                    }
+                }
+                for (int x = 0; x <= width - 1; x++) {
+                    for (int y = 0; y <= 1; y++) {
+                        pixels[x + y * width] = 0x88888888;
+                    }
+                }
+
+                for (int x = 2; x < width - 1; x++) {
+                    for (int y = 2; y < height - 1; y++) {
+                        int red = ((pixels[(x + 1) + y * width + 1] & 0xFF) - (pixels[x + y * width] & 0xFF)) + 128;
+                        int green = (((pixels[(x + 1) + y * width + 1] & 0xFF00) / 0x100) % 0x100
+                                - ((pixels[x + y * width] & 0xFF00) / 0x100) % 0x100) + 128;
+                        int blue = (((pixels[(x + 1) + y * width + 1] & 0xFF0000) / 0x10000) % 0x100
+                                - ((pixels[x + y * width] & 0xFF0000) / 0x10000) % 0x100) + 128;
+                        int avg = (red + blue + green) / 3;
+                        pixels[x + y * width] = (0xff000000 | avg << 16 | avg << 8 | avg);
+                    }
+                }
+                image = createImage(new MemoryImageSource(width, height, pixels, 0, width));
+                bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
+                bufferedImage.createGraphics().drawImage(image, 0, 0, this);
+                repaint();
             }
-            image = createImage(new MemoryImageSource(width, height, pixels, 0, width));
-            bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
-            bufferedImage.createGraphics().drawImage(image, 0, 0, this);
-            repaint();
         }
     }
 
